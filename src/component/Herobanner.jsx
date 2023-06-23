@@ -39,7 +39,7 @@ const truncateString = (str, num) => {
   const goto =(index) =>{
     setCurrentSlide( index);
   }
-  {/*useEffect(() => {
+useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentSlide((currentSlide + 1) % movie.length);
     }, 4000);
@@ -47,7 +47,7 @@ const truncateString = (str, num) => {
     return () => clearInterval(intervalId);
   }, [currentSlide, movie.length]);
 
-*/}
+
 
 useEffect(() => {
     controls.start({ width: ['3%','100%'] });
