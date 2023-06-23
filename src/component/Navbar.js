@@ -25,19 +25,19 @@ const Navbar = () => {
     className="text-text mr-4">Account </motion.button>
 </AnimationSection>
 
-<AnimationSection x={0} y={-10} delay={0.3}>
+<AnimationSection x={0} y={-10} delay={0.2}>
         <motion.button 
             whileHover={{scale:1.04, textShadow: "2px 2px 8px #ffffff" }}
          className="text-text mr-4">Favorite</motion.button>
 </AnimationSection>
 
  
-<AnimationSection x={0} y={-10} delay={0.4}>        
+<AnimationSection x={0} y={-10} delay={0.3}>        
          <motion.button 
         whileHover={{scale:1.04, textShadow: "2px 2px 8px #ffffff" }}
         className="text-text mr-4  rounded-md  py-3 px-8">Sign In</motion.button>
 </AnimationSection>
-<AnimationSection x={20}  delay={0.5}>
+<AnimationSection x={-15} y={0} delay={0.4}>
         <motion.button 
         whileHover={{scale:1.05 , rotate:[0,10,-10,10,-10,10,0]}}
         className="text-text mr-4 bg-primary-button rounded-md  py-3 px-8">Sign Up</motion.button>
