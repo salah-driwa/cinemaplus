@@ -36,7 +36,7 @@ const MostRatedCard = ({ movie }) => {
   <h2 className="text-sm font-light  opacity-60  text-text pl-3">{movie.movie?.release_date
 } </h2> </span> 
 
-    <p className="text-sm text-gray-500">{console.log(movie)}</p>
+ 
   </div>
 </motion.div>
 

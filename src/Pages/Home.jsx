@@ -1,7 +1,7 @@
 import React from 'react'
 import { Herobanner } from '../component/Herobanner'
 import Mostrated from '../component/Mostrated'
-import Tranding from '../component/Tranding'
+import Tranding from '../component/Tranding_section/Tranding'
 
 function Home() {
   return (<>
