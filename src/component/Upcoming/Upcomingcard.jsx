@@ -9,7 +9,7 @@ const Upcamingcard = ({ movie }) => {
     <motion.div
     onHoverStart={()=>setIsHovered(true)}
     onHoverEnd={()=>setIsHovered(false)}
-  className=" rounded-md    w-72   h-[410px]  m-2 
+  className=" rounded-md    w-72   h-[410px] m-5 sm:m-2
    bg-opacity-20  cursor-pointer overflow-hidden 
  bg-[#666666] "
   style={{
@@ -59,7 +59,7 @@ const Upcamingcard = ({ movie }) => {
   <h2 className="text-sm font-light  opacity-60  text-text pl-3">{movie?.release_date
 } </h2> </span> 
 <h2 className="text-lg font-bold mb-2 text-text    ">{movie?.original_title}</h2>
-    <p className="text-sm text-gray-500">{console.log(movie)}</p>
+   
   </div>
 </motion.div>
 

@@ -3,25 +3,38 @@ import requests  from '../Requests'
 import axios from 'axios'
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import AnimationSection from './Animation'
+import { useSwipeable } from 'react-swipeable'
 export const Herobanner = () => {
     const [movie,setMovies] =useState([])
     const controls = useAnimation();
     const [currentSlide, setCurrentSlide] = useState(0);
 
-
+    
     const handlePrevClick = () => {
-        setCurrentSlide((currentSlide - 1 + movie.length) % movie.length);
+      setCurrentSlide((currentSlide - 1 + movie.length) % movie.length);
+    };
+  
+    const handleNextClick = () => {
+      setCurrentSlide((currentSlide + 1) % movie.length);
+    };
+    const swipeHandlers = useSwipeable({
+      onSwipedLeft: handleNextClick,
+      onSwipedRight: handlePrevClick,
+    });
+      useEffect(() => {
+        axios.get(requests.requestPopular).then((response) => {
+          const movieList = response.data.results;
+          const randomMovies = getRandomMovies(movieList, 5);
+          setMovies(randomMovies);
+        });
+      }, []);
+      
+      // Function to get a random selection of movies
+      const getRandomMovies = (movies, count) => {
+        const shuffledMovies = movies.sort(() => 0.5 - Math.random());
+        return shuffledMovies.slice(0, count);
       };
-    
-      const handleNextClick = () => {
-        setCurrentSlide((currentSlide + 1) % movie.length);
-      };
-    
-    useEffect(()=>{
-        axios.get(requests.requestPopular).then((response)=>
-        { setMovies(response.data.results)
-        })
-    },[])
+      
 
    // console.log(movie)
 
@@ -57,7 +70,7 @@ useEffect(() => {
 
   return (
     
-    <div className='w-full h-[800px] text-white'>
+    <div {...swipeHandlers} className='w-full sm:h-[800px]  h-[500px] text-white'   >
     <motion.div  key={currentSlide}
            
             initial={{ opacity: 0 }}
@@ -65,42 +78,42 @@ useEffect(() => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
     className='w-full h-full'>
-      <div className='absolute w-full h-[800px] bg-gradient-to-r from-black z-10'></div>
-      <div className='absolute w-full h-[800px] bg-gradient-to-l opacity-20 from-black z-10'></div>
+      <div className='absolute w-full sm:h-[800px] h-[400px]  bg-gradient-to-t from-black z-10'></div>
+      <div className='absolute w-full sm:h-[800px] bg-gradient-to-l opacity-20 from-black z-10'></div>
       <AnimatePresence initial={false}>
     
       <motion.img
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-        className=' w-full h-[800px]    object-cover  absolute z-0'
+        className=' w-full sm:h-[800px]  h-auto   object-cover  absolute z-0 mt-14 sm:mt-0'
         src={`https://image.tmdb.org/t/p/original/${movie[currentSlide]?.backdrop_path}`}
         alt={movie[currentSlide]?.title}
       />
 
        
-      <div className='absolute  w-fit top-[20%] left-20 px-12  py-10   z-20'>
+      <div className='absolute  w-fit sm:top-[20%]  top-24 mx-10 sm:left-20 sm:px-12  sm:py-10   z-20'>
       <AnimationSection > 
-        <h1 className='text-3xl md:text-5xl font-bold'>{movie[currentSlide]?.title}</h1></AnimationSection>
+        <h1 className='text-xl md:text-5xl font-bold'>{movie[currentSlide]?.title}</h1></AnimationSection>
         <AnimationSection delay={0.1}> 
-        <div className='my-4'>
-          <motion.button className='border  text-text  border-primary-button rounded-sm  py-2 px-6  bg-primary-button'
+        <div className='sm:my-4 mt-20'>
+          <motion.button className='border my-5  text-text  border-primary-button rounded-sm  sm:py-2 sm:px-6  sm:h-10 bg-primary-button w-20 h-8'
           whileHover={{scale:1.05,y:-5}}>
             Play
           </motion.button>
 
-         <motion.button className='border text-white border-gray-300 py-2 px-5 ml-6 rounded-sm  '
+         <motion.button className='border text-white border-gray-300 sm:py-2 sm:px-6  sm:h-10 ml-6 rounded-sm  px-3  h-8'
            whileHover={{scale:1.05 ,y:-5}}>
             Watch Later
           </motion.button>
         </div>
         </AnimationSection>
 
-        <AnimationSection>   <p className='text-gray-400 text-sm pl-3'>
+        <AnimationSection>   <p className='text-gray-400 sm:text-sm pl-3'>
           Released: {movie[currentSlide]?.release_date}
         </p></AnimationSection>
         
-        <AnimationSection delay={0.3 } >   <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200 pl-3'>
+        <AnimationSection delay={0.3 } >   <p className='w-full md:max-w-[70%]   lg:max-w-[50%] xl:max-w-[35%] text-gray-200 pl-3'>
           {truncateString(movie[currentSlide]?.overview, 150)}
         </p> </AnimationSection> 
       </div>

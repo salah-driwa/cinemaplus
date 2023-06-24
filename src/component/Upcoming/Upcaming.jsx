@@ -30,7 +30,7 @@ function Upcaming(){
     };
   
     return (
-      <div className="text-4xl text-text h-screen  mt-10 ml-10">
+      <div className="text-4xl text-text    mt-20    ml-4  sm:mt-10 sm:ml-10  h-[500px]">
         <div className="flex items-center mb-7">
           <motion.span
             animate={{ rotate:[0,-360] }}
@@ -56,9 +56,9 @@ function Upcaming(){
              </motion.button>
           </div>
         </div>
-        <div className=' flex   overflow-x-auto'  ref={containerRef}>
+        <div className=' flex   overflow-x-auto snap-mandatory snap-x scrollbar-hide sm:scrollbar-visible'  ref={containerRef}>
          
-      {movies.map((movie) => ( <div>
+      {movies.map((movie) => ( <div className=' snap-center'>
         <Upcamingcard movie={movie} />
        </div> 
           )) }

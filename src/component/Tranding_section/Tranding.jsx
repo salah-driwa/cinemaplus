@@ -30,8 +30,8 @@ function Tranding() {
   };
 
   return (
-    <div className="text-4xl text-text   mt-10 ml-10  h-[500px]">
-      <div className="flex items-center mb-7">
+    <div className="sm:text-4xl  text-2xl text-text  mt-7 ml-4  sm:mt-10 sm:ml-10  h-[500px] ">
+      <div className="flex items-center sm:mb-7">
         <motion.span
           animate={{ y: [0, 5, 0], scaleY: [1, 1.1, 0.9, 1] }}
           transition={{ repeat: 'true', duration: 1.3 }}
@@ -56,8 +56,9 @@ function Tranding() {
            </motion.button>
         </div>
       </div>
-      <div className=' flex   overflow-x-auto'  ref={containerRef}>
-        {movies.map((movie) => ( <div>
+      <div className=' flex   overflow-x-auto snap-mandatory snap-x scrollbar-hide '  ref={containerRef}>
+        {movies.map((movie) => ( 
+        <div className='snap-center '>
       <Trandingcard movie={movie} />
      </div> 
         )) }

@@ -7,7 +7,7 @@ const MostRatedCard = ({ movie }) => {
     <motion.div
     onHoverStart={()=>setIsHovered(true)}
     onHoverEnd={()=>setIsHovered(false)}
-  className="flex  rounded-md p-10  w-11/12 m-2  bg-opacity-20  cursor-pointer
+  className="flex  rounded-md p-10 sm:w-11/12 m-4 sm:m-3  bg-opacity-20  cursor-pointer
  bg-[#666666] "
   style={{
     borderRadius: '4px',
