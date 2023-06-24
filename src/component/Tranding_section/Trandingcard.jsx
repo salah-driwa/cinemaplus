@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
+import {AiFillStar,AiFillHeart} from 'react-icons/ai'
 
-import {AiFillStar} from 'react-icons/ai'
 
 const Trandingcard = ({ movie }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [isfavorit, setisfavorit] = useState(false);
   
   return (
     <motion.div
@@ -32,7 +33,10 @@ const Trandingcard = ({ movie }) => {
       className="w-full h-72 object-cover rounded-md  relative"
       src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
       alt={movie?.title}
-    />
+    /> <motion.div className=" absolute top-0  right-0 px-3 pt-2 z-30  " initial={{opacity:0.7}} whileHover={{scale:1.2,opacity:1}} animate={{
+        color: isfavorit ? 'red' : '', opacity: isfavorit ?1:0.7 ,scale:isfavorit ? [1,1.1,1]:1 
+      }}    
+      onClick={()=>setisfavorit(!isfavorit)}><AiFillHeart className=''/></motion.div> 
      <motion.div
         className="absolute top-0 left-0 w-full h-full rounded-md"
         style={{
