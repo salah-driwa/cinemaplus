@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import {FaLanguage} from 'react-icons/fa'
+
 import {AiFillStar} from 'react-icons/ai'
 const MostRatedCard = ({ movie }) => {
   
