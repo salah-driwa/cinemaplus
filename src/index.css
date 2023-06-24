@@ -7,3 +7,24 @@ body{
   background-color: black;
   font-family: 'Lexend', sans-serif;
 }
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #8f54a0 #171717;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #171717;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #e22d2d;
+    border-radius: 18px;
+
+  }

@@ -23,6 +23,7 @@ export const Herobanner = () => {
         })
     },[])
 
+   // console.log(movie)
 
 const truncateString = (str, num) => {
     if (str?.length > num) {
