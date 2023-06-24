@@ -22,9 +22,28 @@ body{
 
 *::-webkit-scrollbar-track {
   background: #171717;
+  border-radius: 10px;
+  
 }
 
 *::-webkit-scrollbar-thumb {
   background: linear-gradient(to bottom, red, purple);
   border-radius: 18px;
 }
+.hide-scroll::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.hide-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hide-scroll::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.hide-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+

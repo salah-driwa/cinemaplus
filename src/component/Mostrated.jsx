@@ -17,7 +17,7 @@ function Mostrated()
 
   return (
     <div className='  w-[600px] mt-10'>
-        <span className=' text-4xl font-extrabold  bg-clip-text text-transparent bg-gradient-to-r  from-primary-button to-violet-500'>Most Rated</span> 
+        <span className=' ml-3 text-4xl font-extrabold  bg-clip-text text-transparent bg-gradient-to-r  from-primary-button to-violet-500'>Most Rated</span> 
         {movies.slice(0,10).map((movie) => (<div>  <MostRatedCard
       movie={{movie
       }}

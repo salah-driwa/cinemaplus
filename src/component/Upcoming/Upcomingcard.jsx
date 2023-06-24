@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
-
 import {AiFillStar} from 'react-icons/ai'
 
-const Trandingcard = ({ movie }) => {
+const Upcamingcard = ({ movie }) => {
     const [isHovered, setIsHovered] = useState(false);
   
   return (
@@ -55,7 +54,7 @@ const Trandingcard = ({ movie }) => {
   <h2 className="text-sm font-light  opacity-60  text-text pl-3">{movie?.release_date
 } </h2> </span> 
 <h2 className="text-lg font-bold mb-2 text-text    ">{movie?.original_title}</h2>
-  
+    <p className="text-sm text-gray-500">{console.log(movie)}</p>
   </div>
 </motion.div>
 
@@ -64,4 +63,4 @@ const Trandingcard = ({ movie }) => {
   );
 };
 
-export default Trandingcard;
+export default Upcamingcard;
