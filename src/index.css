@@ -9,22 +9,22 @@ body{
 }
 /* ===== Scrollbar CSS ===== */
   /* Firefox */
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: #8f54a0 #171717;
-  }
+  /* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: linear-gradient(to right, red, purple) #171717;
+}
 
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 15px;
-  }
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
 
-  *::-webkit-scrollbar-track {
-    background: #171717;
-  }
+*::-webkit-scrollbar-track {
+  background: #171717;
+}
 
-  *::-webkit-scrollbar-thumb {
-    background-color: #e22d2d;
-    border-radius: 18px;
-
-  }
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, red, purple);
+  border-radius: 18px;
+}

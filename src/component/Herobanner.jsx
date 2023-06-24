@@ -43,7 +43,7 @@ const truncateString = (str, num) => {
 useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentSlide((currentSlide + 1) % movie.length);
-    }, 4000);
+    }, 5500);
 
     return () => clearInterval(intervalId);
   }, [currentSlide, movie.length]);
@@ -138,7 +138,7 @@ useEffect(() => {
        }
              <motion.div
   animate={controls}
-  transition={{ duration: 4 }}
+  transition={{ duration: 5.5 }}
   className="absolute left-0 -bottom-[76px] bg-gradient-to-l from-primary-button via-primary-button to-transparent h-2"
 ></motion.div>
 
