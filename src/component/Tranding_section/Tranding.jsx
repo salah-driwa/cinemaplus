@@ -4,7 +4,7 @@ import axios from 'axios'
 import requests  from '../../Requests'
 import { useState,useEffect } from 'react'
 import Trandingcard from './Trandingcard'
-import MostRatedCard from '../MostRatedCard '
+
 
 import {AiFillFire} from 'react-icons/ai'
 function Tranding() {
