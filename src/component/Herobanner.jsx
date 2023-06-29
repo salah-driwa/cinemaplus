@@ -78,8 +78,8 @@ useEffect(() => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
     className='w-full h-full'>
-      <div className='absolute w-full sm:h-[800px] h-[400px]  bg-gradient-to-t from-black z-10'></div>
-      <div className='absolute w-full sm:h-[800px] bg-gradient-to-l opacity-20 from-black z-10'></div>
+      <div className='absolute w-full sm:h-[800px] h-[400px]  bg-gradient-to-t from-black z-10 opacity-50'></div>
+      <div className='absolute w-full sm:h-[800px] bg-gradient-to-b  opacity-80 from-black z-10'></div>
       <AnimatePresence initial={false}>
     
       <motion.img

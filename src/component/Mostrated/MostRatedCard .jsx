@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import {AiFillStar} from 'react-icons/ai'
+
+import 'react-loading-skeleton/dist/skeleton.css'
+
 const MostRatedCard = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
@@ -21,11 +24,12 @@ const MostRatedCard = ({ movie }) => {
   }}
 >
   <div className="mr-4">
-    <img
+   <img
       className="  w-12 h-full object-cover"
       src={`https://image.tmdb.org/t/p/original/${movie.movie?.poster_path}`}
       alt={movie?.title}
     />
+    
   </div>
   <div>
     <h2 className="text-lg font-bold mb-2 text-text">{movie.movie?.original_title}</h2>
@@ -39,6 +43,7 @@ const MostRatedCard = ({ movie }) => {
 
  
   </div>
+ 
 </motion.div>
 
 

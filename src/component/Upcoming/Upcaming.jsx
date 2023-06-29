@@ -5,14 +5,22 @@ import requests from '../../Requests';
 import { RxCountdownTimer } from 'react-icons/rx';
 import {BsFillArrowLeftCircleFill,BsFillArrowRightCircleFill} from 'react-icons/bs';
 import Upcamingcard from './Upcomingcard';
+import Skeltoncards from '../Tranding_section/Skeltoncards';
 function Upcaming(){
     const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
     const containerRef = useRef(null);
   
     useEffect(() => {
+      const delay = 2000;
+
+      const timer = setTimeout(() => {
       axios.get(requests.requestUpcoming).then((response) => {
         setMovies(response.data.results);
+        setLoading(false);
       });
+    }, delay);
+    return () => clearTimeout(timer);
     }, []);
   
     const scrollLeft = () => {
@@ -58,10 +66,16 @@ function Upcaming(){
         </div>
         <div className=' flex   overflow-x-auto snap-mandatory snap-x scrollbar-hide sm:scrollbar-visible'  ref={containerRef}>
          
-      {movies.map((movie) => ( <div className=' snap-center'>
-        <Upcamingcard movie={movie} />
-       </div> 
-          )) }
+      {loading ? (   Array.from({ length: 10 }).map((_, index) => (
+          <div key={index}>
+            <Skeltoncards />
+          </div>
+        ))
+        ) : (
+       movies.map((movie) => ( <div className=' snap-center'>
+      <Upcamingcard movie={movie} />
+     </div>  ))  )}
+     
       </div>
       </div>
     );

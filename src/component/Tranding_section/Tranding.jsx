@@ -5,15 +5,23 @@ import requests from '../../Requests';
 import { AiFillFire } from 'react-icons/ai';
 import Trandingcard from './Trandingcard';
 import {BsFillArrowLeftCircleFill,BsFillArrowRightCircleFill} from 'react-icons/bs';
+import Skeltoncards from './Skeltoncards';
 function Tranding() {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
 
   useEffect(() => {
-    axios.get(requests.requestTrending).then((response) => {
-      setMovies(response.data.results);
-    });
-  }, []);
+      const delay = 2000; // 2 seconds
+
+   const timer = setTimeout(() => {
+      axios.get(requests.requestTrending).then((response) => {
+        setMovies(response.data.results);
+        setLoading(false);
+      });
+        }, delay);
+      return () => clearTimeout(timer);
+    }, []);
 
   const scrollLeft = () => {
     containerRef.current.scrollBy({
@@ -57,11 +65,21 @@ function Tranding() {
         </div>
       </div>
       <div className=' flex   overflow-x-auto snap-mandatory snap-x scrollbar-hide '  ref={containerRef}>
-        {movies.map((movie) => ( 
-        <div className='snap-center '>
-      <Trandingcard movie={movie} />
-     </div> 
-        )) }
+           {loading ? (
+        Array.from({ length: 10 }).map((_, index) => (
+          <div key={index}>
+            <Skeltoncards />
+          </div>
+        ))
+      ) : (
+        movies.map((movie) => ( <div  className=' snap-center'>  <Trandingcard
+          movie={{movie
+          }}
+        />
+       
+       </div>  
+        ))
+      )}
     </div>
     </div>
   );

@@ -11,7 +11,7 @@ const Trandingcard = ({ movie }) => {
     <motion.div
     onHoverStart={()=>setIsHovered(true)}
     onHoverEnd={()=>setIsHovered(false)}
-  className=" rounded-md    w-72   h-[410px]  m-5 sm:m-2 
+  className=" rounded-md     w-72   h-[410px]  m-5 sm:m-2 
    bg-opacity-20  cursor-pointer overflow-hidden 
  bg-[#666666] "
   style={{
@@ -31,7 +31,7 @@ const Trandingcard = ({ movie }) => {
     animate={{  scale:isHovered ?1.1:1}}
         transition={{ duration: 0.6 }}
       className="w-full h-72 object-cover rounded-md  relative"
-      src={`https://image.tmdb.org/t/p/original/${movie.movie?.poster_path}`}
+      src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
       alt={movie?.title}
     /> <motion.div className=" absolute top-0  right-0 px-3 pt-2 z-30  " initial={{opacity:0.7}} whileHover={{scale:1.2,opacity:1}} animate={{
         color: isfavorit ? 'red' : '', opacity: isfavorit ?1:0.7 ,scale:isfavorit ? [1,1.1,1]:1 
@@ -52,13 +52,13 @@ const Trandingcard = ({ movie }) => {
   <div className=' mt-2'>
    
   <span className='flex my-4' >  
-    <span className='bg-white flex   mx-2 w-fit px-2  rounded-xl bg-opacity-20 text-text opacity-60 '>  <h2 className="text-sm font-light">{movie.movie?.original_language}</h2> </span>
+    <span className='bg-white flex   mx-2 w-fit px-2  rounded-xl bg-opacity-20 text-text opacity-60 '>  <h2 className="text-sm font-light">{movie?.original_language}</h2> </span>
 
-    <span className='bg-white flex   mx-2 w-fit px-2  rounded-xl bg-opacity-20 text-text  '> <motion.span animate={{rotate:isHovered ? 360:0 }}><AiFillStar color='yellow' className=' h-5 w-4'/></motion.span><h2 className="text-sm font-light  opacity-60 pl-1">{movie.movie?.vote_average}</h2>
+    <span className='bg-white flex   mx-2 w-fit px-2  rounded-xl bg-opacity-20 text-text  '> <motion.span animate={{rotate:isHovered ? 360:0 }}><AiFillStar color='yellow' className=' h-5 w-4'/></motion.span><h2 className="text-sm font-light  opacity-60 pl-1">{movie?.vote_average}</h2>
   </span>
-  <h2 className="text-sm font-light  opacity-60  text-text pl-3">{movie.movie?.release_date
+  <h2 className="text-sm font-light  opacity-60  text-text pl-3">{movie?.release_date
 } </h2> </span> 
-<h2 className="text-lg font-bold mb-2 text-text    ">{movie.movie?.original_title}</h2>
+<h2 className="text-lg font-bold mb-2 text-text    ">{movie?.original_title}</h2>
   
   </div>
 </motion.div>
