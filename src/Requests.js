@@ -22,7 +22,8 @@ const requests = {
   requestAction: `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&with_genres=28`,
   requestComedy: `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&with_genres=35`,
   requestRomance: `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&with_genres=10749`,
-  requestPastYears: `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&primary_release_date.gte=${getPastYear(10)}&primary_release_date.lte=${getCurrentYear()}`
+  requestPastYears: `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&primary_release_date.gte=${getPastYear(10)}&primary_release_date.lte=${getCurrentYear()}` ,
+  requestGenreList: `https://api.themoviedb.org/3/genre/movie/list?api_key=${key}`,
   // Add more categories or modify existing ones as needed
 };
   export default requests

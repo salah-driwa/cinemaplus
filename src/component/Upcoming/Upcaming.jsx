@@ -9,30 +9,77 @@ import Skeltoncards from '../Tranding_section/Skeltoncards';
 function Upcaming(){
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
-    const containerRef = useRef(null);
-  
-    useEffect(() => {
-      const delay = 2000;
+    const [genres, setGenres] = useState([]);
 
-      const timer = setTimeout(() => {
-      axios.get(requests.requestUpcoming).then((response) => {
-        setMovies(response.data.results);
-        setLoading(false);
-      });
-    }, delay);
-    return () => clearTimeout(timer);
+    const containerRef = useRef(null);
+    const compareGenres = (prevGenres, newGenres) => {
+      if (prevGenres.length !== newGenres.length) {
+        return false;
+      }
+    
+      for (let i = 0; i < prevGenres.length; i++) {
+        if (prevGenres[i].id !== newGenres[i].id || prevGenres[i].name !== newGenres[i].name) {
+          return false;
+        }
+      }
+    
+      return true;
+    };
+    
+    const prevGenresRef = useRef([]);
+    
+    useEffect(() => {
+      axios
+        .get(requests.requestGenreList)
+        .then((response) => {
+          const newGenres = response.data.genres;
+          if (newGenres.length > 0) {
+            if (!compareGenres(prevGenresRef.current, newGenres)) {
+              setGenres(newGenres);
+              console.log(newGenres);
+            } else {
+              console.log("Genres data is the same as the previous value.");
+            }
+            prevGenresRef.current = newGenres;
+          } else {
+            console.log("Genres data is not available.");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          // Handle errors
+        });
     }, []);
+    
+    
+    
+    useEffect(() => {
+      // Fetch upcoming movies
+      axios
+        .get(requests.requestUpcoming)
+        .then((response) => {
+          setMovies(response.data.results);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false); // Set loading to false even in case of an error
+        });
+    }, []);
+    
+    
+    
   
     const scrollLeft = () => {
       containerRef.current.scrollBy({
-        left: -300,
+        left: -1000,
         behavior: 'smooth',
       });
     };
   
     const scrollRight = () => {
       containerRef.current.scrollBy({
-        left: 300,
+        left: 1000,
         behavior: 'smooth',
       });
     };
@@ -64,6 +111,7 @@ function Upcaming(){
              </motion.button>
           </div>
         </div>
+       
         <div className=' flex   overflow-x-auto snap-mandatory snap-x scrollbar-hide sm:scrollbar-visible'  ref={containerRef}>
          
       {loading ? (   Array.from({ length: 10 }).map((_, index) => (
@@ -73,8 +121,10 @@ function Upcaming(){
         ))
         ) : (
        movies.map((movie) => ( <div className=' snap-center'>
-      <Upcamingcard movie={movie} />
+      <Upcamingcard movie={movie} genres={genres} />
      </div>  ))  )}
+
+   
      
       </div>
       </div>

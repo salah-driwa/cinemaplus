@@ -14,6 +14,51 @@ function Category() {
   const [horrorMovies, setHorrorMovies] = useState([]);
   const [activeCategory, setActiveCategory] = useState('Action');
   const [loading, setLoading] = useState(true);
+  const [genres, setGenres] = useState([]);
+
+    
+    const compareGenres = (prevGenres, newGenres) => {
+      if (prevGenres.length !== newGenres.length) {
+        return false;
+      }
+    
+      for (let i = 0; i < prevGenres.length; i++) {
+        if (prevGenres[i].id !== newGenres[i].id || prevGenres[i].name !== newGenres[i].name) {
+          return false;
+        }
+      }
+    
+      return true;
+    };
+    
+    const prevGenresRef = useRef([]);
+    
+    useEffect(() => {
+      axios
+        .get(requests.requestGenreList)
+        .then((response) => {
+          const newGenres = response.data.genres;
+          if (newGenres.length > 0) {
+            if (!compareGenres(prevGenresRef.current, newGenres)) {
+              setGenres(newGenres);
+              console.log(newGenres);
+            } else {
+              console.log("Genres data is the same as the previous value.");
+            }
+            prevGenresRef.current = newGenres;
+          } else {
+            console.log("Genres data is not available.");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          // Handle errors
+        });
+    }, []);
+    
+
+
+
   useEffect(() => {
     const delay = 2000;
     const timer = setTimeout(() => {
@@ -63,14 +108,14 @@ function Category() {
 
   const scrollLeft = () => {
     containerRef.current.scrollBy({
-      left: -300,
+      left: -1000,
       behavior: 'smooth',
     });
   };
 
   const scrollRight = () => {
     containerRef.current.scrollBy({
-      left: 300,
+      left: 1000,
       behavior: 'smooth',
     });
   };
@@ -149,25 +194,25 @@ function Category() {
          ) : (activeCategory === 'Action' &&
           actionMovies.map((movie) => (
             <div className="snap-center">
-              <CategoryCard movie={movie} />
+              <CategoryCard movie={movie} genres={genres} />
             </div>
           )))}
         {activeCategory === 'Comedy' &&
           comedyMovies.map((movie) => (
             <div className="snap-center">
-              <CategoryCard movie={movie} />
+              <CategoryCard movie={movie} genres={genres} />
             </div>
           ))}
         {activeCategory === 'Romance' &&
           romanceMovies.map((movie) => (
             <div className="snap-center">
-              <CategoryCard movie={movie} />
+              <CategoryCard movie={movie}  genres={genres}/>
             </div>
           ))}
         {activeCategory === 'Horror' &&
           horrorMovies.map((movie) => (
             <div className="snap-center">
-              <CategoryCard movie={movie} />
+              <CategoryCard movie={movie} genres={genres} />
             </div>
           ))}
       </div>

@@ -3,10 +3,20 @@ import React, { useState } from 'react';
 import {AiFillStar,AiFillHeart} from 'react-icons/ai'
 
 
-const Trandingcard = ({ movie }) => {
+const Trandingcard = ({ movie,genres }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isfavorit, setisfavorit] = useState(false);
   
+    const getGenreNames = () => {
+      const genreNames = movie.movie.genre_ids
+        .slice(0, 1) // Get the first two genre IDs
+        .map((genreId) => {
+          const genre = genres.find((genre) => genre.id === genreId);
+          return genre ? genre.name : '';
+        });
+      return genreNames.join(', ');
+    };
+    
   return (
     <motion.div
     onHoverStart={()=>setIsHovered(true)}
@@ -51,14 +61,41 @@ const Trandingcard = ({ movie }) => {
   </div>
   <div className=' mt-2'>
    
-  <span className='flex my-4' >  
-    <span className='bg-white flex   mx-2 w-fit px-2  rounded-xl bg-opacity-20 text-text opacity-60 '>  <h2 className="text-sm font-light">{movie.movie?.original_language}</h2> </span>
-
-    <span className='bg-white flex   mx-2 w-fit px-2  rounded-xl bg-opacity-20 text-text  '> <motion.span animate={{rotate:isHovered ? 360:0 }}><AiFillStar color='yellow' className=' h-5 w-4'/></motion.span><h2 className="text-sm font-light  opacity-60 pl-1">{movie.movie?.vote_average}</h2>
-  </span>
-  <h2 className="text-sm font-light  opacity-60  text-text pl-3">{movie.movie?.release_date
-} </h2> </span> 
-<h2 className="text-lg font-bold mb-2 text-text    ">{movie.movie?.original_title}</h2>
+  <span className="flex my-4">
+  <span className="bg-white flex mx-2 w-fit px-2 rounded-xl bg-opacity-20 text-text h-fit">
+             <motion.span animate={{ rotate: isHovered ? 360 : 0 }}>
+               <AiFillStar color="yellow" className="h-5 w-4" />
+             </motion.span>
+             <h2 className="text-sm font-light opacity-60 pl-1">
+               {movie.movie?.vote_average}
+             </h2>
+           </span>
+           
+         {movie.movie.genre_ids.length > 0 && (
+     <span
+       className="bg-white h-fit flex mx-2 w-fit px-2 rounded-xl bg-opacity-20 text-text"
+       style={{
+         overflow: 'hidden',
+         textOverflow: 'ellipsis',
+         whiteSpace: 'nowrap',
+         maxWidth: '160px', // Adjust the value based on your preference
+       }}
+     >
+       <h2 className="text-sm font-light opacity-60 pl-1">
+         {getGenreNames()} ..
+       </h2>
+     </span>
+   )}
+   
+ 
+          
+           <span className="bg-white h-fit flex mx-2 w-fit px-2 rounded-xl bg-opacity-20 text-text opacity-60">
+             <h2 className="text-sm font-light">
+               {movie.movie?.release_date.substring(0, 4)}
+             </h2>
+           </span>
+         </span>
+<h2 className="text-lg font-bold mb-2 text-text  ml-5  ">{movie.movie?.original_title}</h2>
   
   </div>
 </motion.div>
