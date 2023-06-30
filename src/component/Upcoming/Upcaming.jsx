@@ -51,22 +51,19 @@ function Upcaming(){
         });
     }, []);
     
-    
-    
+  
     useEffect(() => {
-      // Fetch upcoming movies
-      axios
-        .get(requests.requestUpcoming)
-        .then((response) => {
-          setMovies(response.data.results);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false); // Set loading to false even in case of an error
-        });
+      const delay = 500; // 2 seconds
+
+   const timer = setTimeout(() => {
+      axios.get(requests.requestUpcoming).then((response) => {
+        setMovies(response.data.results);
+        setLoading(false);
+        
+      });
+        }, delay);
+      return () => clearTimeout(timer);
     }, []);
-    
     
     
   

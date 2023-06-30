@@ -1,10 +1,47 @@
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillStar, AiFillHeart } from 'react-icons/ai';
-
+ import { UserAuth } from '../../context/AuthContext';
+ import { db } from '../../firebase';
+ import { arrayUnion,doc,updateDoc,getDoc,arrayRemove  } from 'firebase/firestore';
 const UpcomingCard = ({ movie, genres }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  
+  const {user} =UserAuth();
+
+  const movieid= doc(db,'users',`${user?.email}`)
+  const saveshow = async () => {
+    if (user?.email) {
+      const updatedIsFavorite = !isFavorite; // Get the updated value of isFavorite
+  
+      if (updatedIsFavorite) {
+        // Add the movie to the savedshow array
+        await updateDoc(movieid, {
+          savedshow: arrayUnion({
+            id: movie.id,
+            title: movie.original_title,
+            img: movie.backdrop_path,
+            poster: movie.poster_path
+          })
+        });
+      } else {
+        // Remove the movie from the savedshow array
+        await updateDoc(movieid, {
+          savedshow: arrayRemove({
+            id: movie.id,
+            title: movie.original_title,
+            img: movie.backdrop_path,
+            poster: movie.poster_path
+          })
+        });
+      }
+  
+      setIsFavorite(updatedIsFavorite); // Update the state with the new value
+    } else {
+      alert('Please log in to save a movie');
+    }
+  };
 
   const getGenreNames = () => {
     const genreNames = movie.genre_ids
@@ -15,7 +52,21 @@ const UpcomingCard = ({ movie, genres }) => {
       });
     return genreNames.join(', ');
   };
-  
+
+  useEffect(() => {
+    const checkIfFavorite = async () => {
+      if (user?.email && movie.id) {
+        const docRef = doc(db, 'users', user.email);
+        const docSnap = await getDoc(docRef);
+        const savedShow = docSnap.data()?.savedshow || [];
+        const isMovieSaved = savedShow.some((show) => show.id === movie.id);
+        setIsFavorite(isMovieSaved);
+      }
+    };
+
+    checkIfFavorite();
+  }, [movie.id, user?.email]);
+
 
   return (
     <motion.div
@@ -50,7 +101,7 @@ const UpcomingCard = ({ movie, genres }) => {
             opacity: isFavorite ? 1 : 0.7,
             scale: isFavorite ? [1, 1.1, 1] : 1,
           }}
-          onClick={() => setIsFavorite(!isFavorite)}
+          onClick={saveshow}
         >
           <AiFillHeart className="" />
         </motion.div>

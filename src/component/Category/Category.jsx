@@ -60,7 +60,7 @@ function Category() {
 
 
   useEffect(() => {
-    const delay = 2000;
+    const delay = 500;
     const timer = setTimeout(() => {
     axios.get(requests.requestAction).then((response) => {
       const movies = response.data.results.map((movie) => ({

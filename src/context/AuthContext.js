@@ -1,10 +1,13 @@
  import { useState,useContext,useEffect,createContext } from "react";
- import { auth } from "../firebase";
+ import { auth, db } from "../firebase";
  import {createUserWithEmailAndPassword
     ,signInWithEmailAndPassword
     ,signOut
     ,onAuthStateChanged
-,sendEmailVerification,GoogleAuthProvider ,signInWithPopup, updateProfile } from 'firebase/auth'
+,sendEmailVerification,GoogleAuthProvider ,signInWithPopup, updateProfile }
+ from 'firebase/auth'
+ import {setDoc,doc ,getDoc} from 'firebase/firestore'
+
  const AuthContext = createContext()
  export function AuthContextProvider({children}){
     const [user,setuser] =useState({})
@@ -13,9 +16,15 @@
       return createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          return updateProfile(user, { displayName: name }).then(() => user);
+          return updateProfile(user, { displayName: name }).then(() => {
+            setDoc(doc(db, 'users', email), {
+              savedshow: []
+            });
+            return user;
+          });
         });
     }
+    
     
     function login(email,password){
         return signInWithEmailAndPassword(auth,email,password)
@@ -55,15 +64,28 @@
    
     async function signInWithGoogle() {
       const provider = new GoogleAuthProvider();
-        try {
-          const result = await signInWithPopup(auth, provider);
-          const user = result.user;
-          console.log('Successfully signed in with Google:', user);
-        } catch (error) {
-          console.log('Error signing in with Google:', error);
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+    
+        const userRef = doc(db, 'users', user.email);
+        const userSnap = await getDoc(userRef);
+    
+        // Check if the user document already exists
+        if (!userSnap.exists()) {
+          // Create the document only if it doesn't exist
+          await setDoc(userRef, {
+            savedshow: []
+          });
         }
+    
+        console.log('Successfully signed in with Google:', user);
+      } catch (error) {
+        console.log('Error signing in with Google:', error);
       }
-      
+    }
+    
+    
  
 
     return(

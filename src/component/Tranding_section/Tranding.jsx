@@ -52,7 +52,7 @@ function Tranding() {
   
 
   useEffect(() => {
-      const delay = 2000; // 2 seconds
+      const delay = 500; // 2 seconds
 
    const timer = setTimeout(() => {
       axios.get(requests.requestTrending).then((response) => {
@@ -106,7 +106,7 @@ function Tranding() {
         </div>
       </div>
       <div className=' flex   overflow-x-auto snap-mandatory snap-x scrollbar-hide '  ref={containerRef}>
-    {  console.log(movies)}
+   
            {loading ? (
         Array.from({ length: 10 }).map((_, index) => (
           <div key={index}>

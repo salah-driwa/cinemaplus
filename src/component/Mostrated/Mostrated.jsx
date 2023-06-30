@@ -50,7 +50,7 @@ function Mostrated() {
   
 
   useEffect(() => {
-    const delay = 2000; // 2 seconds
+    const delay = 500; // 2 seconds
 
     const timer = setTimeout(() => {
       axios.get(requests.requestTopRated).then((response) => {

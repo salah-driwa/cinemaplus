@@ -10,7 +10,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className="flex justify-between items-center w-full   absolute  bg-opacity-0  z-30">{console.log(user)}
+    <nav className="flex justify-between items-center w-full   absolute  bg-opacity-0  z-30">
         <AnimationSection x={0} y={-10}>
       <div className="h-full sm:text-3xl  text-md  text-text m-5 cursor-pointer ">
         <Link to={'/home'}>
