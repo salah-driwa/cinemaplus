@@ -5,7 +5,7 @@ import Button from '../component/Button'
 import Rive from '../component/Rive_animation/Rive'
 function Landingpage() {
   return (
-    <div className=' h-screen relative'>
+    <div className=' relative'>
           
       <div className=' z-20'>
       <h1 className=' text-3xl text-center  text-text pt-32  z-20 font-extrabold '>Unleash the Magic of Movies, Anytime, Anywhere</h1>
@@ -23,14 +23,14 @@ function Landingpage() {
   </Link>
   
   </div>
-  <div className=' h-screen   w-full mb-32   '> 
-  <div className=' z-20 flex justify-center align-middle gap-0'>
-    <div className=' mt-20   '>
-      <h1 className=' text-3xl text-left text-text pt-32  z-20 font-extrabold '>Enjoy on your TV</h1>
+  <div className='   w-full    '> 
+  <div className=' z-20 flex  sm:flex-row flex-col justify-center align-middle '>
+    <div className=' mt-20     sm:pl-40  '>
+      <h1 className=' text-3xl text-left text-text pt-32  z-20 font-extrabold  pl-8'>Enjoy on your TV</h1>
       <p className=' text-text   pt-8 text-lg opacity-60 text-left  sm:px-0  px-10'>Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
       </div>
-     <div className=' relative'>
-      <img src="https://i.gifer.com/H95B.gif" className='  h-[170px] absolute  right-1/3 top-[160px]   w-[299px]' alt="GIF" />
+     <div className=' relative '>
+      <img src="https://i.gifer.com/H95B.gif" className='  sm:h-[170px] absolute   sm:left-[240px]  sm:top-[160px]   sm:w-[299px]  h-24  w-[150px] top-[105px] left-[100px]' alt="GIF" />
 
       <Rive/>
       </div>

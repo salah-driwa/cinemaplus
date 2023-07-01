@@ -15,9 +15,9 @@ function Rive() {
 
 
  
-    <div className="">
+    <div className=" sm:h-[500px]   sm:w-[800px]  h-[300px] w-screen">
      <RiveComponent 
-    style={{ height: "500px" ,width:'800px' ,position :"relative"  }}
+    style={{ position :"relative"  }}
   
    
   />
