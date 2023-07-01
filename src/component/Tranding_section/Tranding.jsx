@@ -87,7 +87,7 @@ function Tranding() {
         >
           <AiFillFire />
         </motion.span>
-        <span className="ml-2">Tranding</span>
+        <span className="ml-2">Trending</span>
         <div className="flex ml-auto mr-10">
           <motion.button
           whileHover={{scale:1.1}}

@@ -133,7 +133,7 @@ function Category() {
         >
           <BiSolidCategoryAlt />
         </motion.span>
-        <span className=" sm:ml-2">Category</span>
+        <span className=" sm:ml-2">categoeries</span>
         <div className="flex ml-auto  sm:mr-32 mr-10">
           <motion.button
             whileHover={{ scale: 1.1 }}
