@@ -6,14 +6,7 @@ import requests from '../../Requests';
 const MoviePage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-  const [currentServer, setCurrentServer] = useState('Server1URL');
-
-  const handleServer1 = () => {
-    setCurrentServer('Server1URL');
-  };
-  const handleServer2 = () => {
-    setCurrentServer('Server2URL');
-  };
+  
   useEffect(() => {
     // Fetch movie data using the ID and set it in the state
     // You can use an API call or fetch the data from your local state/Redux store
@@ -46,12 +39,7 @@ const MoviePage = () => {
     <img src={movie[0].ImageURL} alt={movie[0].Title} />
 
     <div className="mt-4 flex justify-center">
-        <button className="mr-2" onClick={handleServer1}>
-        Server 1
-        </button>
-        <button className="mr-2" onClick={handleServer2}>
-        Server 2
-        </button>
+       
         <iframe
           src={movie[0].Server2URL}
           title="Movie Player"
