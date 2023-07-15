@@ -29,6 +29,7 @@
     function login(email,password){
         return signInWithEmailAndPassword(auth,email,password)
     }
+    
     function logout(){
         return signOut(auth)
     }
@@ -89,7 +90,7 @@
  
 
     return(
-        <AuthContext.Provider value={{signup,login,logout,sendVerification,signInWithGoogle  ,user}}> 
+        <AuthContext.Provider value={{signup,login,logout,sendVerification,signInWithGoogle ,user}}> 
         {children}  
         </AuthContext.Provider>
     )

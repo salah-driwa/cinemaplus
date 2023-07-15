@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
-import {AiFillStar,AiFillHeart} from 'react-icons/ai'
+import {AiFillHeart} from 'react-icons/ai'
 import { UserAuth } from '../../context/AuthContext';
 import { arrayUnion,doc,updateDoc,getDoc,arrayRemove  } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { Link } from 'react-router-dom';
 
-const Trandingcard = ({ movie,genres }) => {
+const Trandingcard = ({ movie }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
     const {user} =UserAuth();
@@ -19,20 +20,18 @@ const Trandingcard = ({ movie,genres }) => {
           // Add the movie to the savedshow array
           await updateDoc(movieid, {
             savedshow: arrayUnion({
-              id: movie.movie.id,
-              title: movie.movie.original_title,
-              img: movie.movie.backdrop_path,
-              poster: movie.movie.poster_path
+              id: movie._id,
+              title: movie.Title,
+              poster: movie.ImageURL
             })
           });
         } else {
           // Remove the movie from the savedshow array
           await updateDoc(movieid, {
             savedshow: arrayRemove({
-              id: movie.movie.id,
-              title: movie.movie.original_title,
-              img: movie.movie.backdrop_path,
-              poster: movie.movie.poster_path
+              id: movie._id,
+              title: movie.Title,
+              poster: movie.ImageURL
             })
           });
         }
@@ -43,33 +42,25 @@ const Trandingcard = ({ movie,genres }) => {
       }
     };
   
-    const getGenreNames = () => {
-      const genreNames = movie.movie.genre_ids
-        .slice(0, 1) // Get the first two genre IDs
-        .map((genreId) => {
-          const genre = genres.find((genre) => genre.id === genreId);
-          return genre ? genre.name : '';
-        });
-      return genreNames.join(', ');
-    };
+   
 
     
   useEffect(() => {
     const checkIfFavorite = async () => {
-      if (user?.email && movie.movie.id) {
+      if (user?.email && movie._id) {
         const docRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(docRef);
         const savedShow = docSnap.data()?.savedshow || [];
-        const isMovieSaved = savedShow.some((show) => show.id === movie.movie.id);
+        const isMovieSaved = savedShow.some((show) => show.id === movie._id);
         setIsFavorite(isMovieSaved);
       }
     };
 
     checkIfFavorite();
-  }, [movie.movie.id, user?.email]);
+  }, [movie._id, user?.email]);
 
     
-  return (
+  return ( <Link to={`/movies/${movie.movieId}`}>
     <motion.div
     onHoverStart={()=>setIsHovered(true)}
     onHoverEnd={()=>setIsHovered(false)}
@@ -93,8 +84,8 @@ const Trandingcard = ({ movie,genres }) => {
     animate={{  scale:isHovered ?1.1:1}}
         transition={{ duration: 0.6 }}
       className="w-full h-72 object-cover rounded-md  relative"
-      src={`https://image.tmdb.org/t/p/original/${movie.movie?.poster_path}`}
-      alt={movie?.title}
+      src={movie.ImageURL}
+      alt={movie.Title}
     /> <motion.div className=" absolute top-0  right-0 px-3 pt-2 z-30  " initial={{opacity:0.7}} whileHover={{scale:1.2,opacity:1}} animate={{
         color: isFavorite ? 'red' : '', opacity: isFavorite ?1:0.7 ,scale:isFavorite ? [1,1.1,1]:1 
       }}    
@@ -114,45 +105,33 @@ const Trandingcard = ({ movie,genres }) => {
   <div className=' mt-2'>
    
   <span className="flex my-4">
-  <span className="bg-white flex mx-2 w-fit px-2 rounded-xl bg-opacity-20 text-text h-fit">
-             <motion.span animate={{ rotate: isHovered ? 360 : 0 }}>
-               <AiFillStar color="yellow" className="h-5 w-4" />
-             </motion.span>
-             <h2 className="text-sm font-light opacity-60 pl-1">
-               {movie.movie?.vote_average}
-             </h2>
-           </span>
+
            
-         {movie.movie.genre_ids.length > 0 && (
-     <span
-       className="bg-white h-fit flex mx-2 w-fit px-2 rounded-xl bg-opacity-20 text-text"
-       style={{
-         overflow: 'hidden',
-         textOverflow: 'ellipsis',
-         whiteSpace: 'nowrap',
-         maxWidth: '160px', // Adjust the value based on your preference
-       }}
-     >
-       <h2 className="text-sm font-light opacity-60 pl-1">
-         {getGenreNames()} ..
-       </h2>
-     </span>
-   )}
-   
- 
-          
-           <span className="bg-white h-fit flex mx-2 w-fit px-2 rounded-xl bg-opacity-20 text-text opacity-60">
-             <h2 className="text-sm font-light">
-               {movie.movie?.release_date.substring(0, 4)}
-             </h2>
-           </span>
+         
+     
+      
+       {movie.Genres.map((genre)=>
+        <span
+        className="bg-white h-fit flex mx-2 w-fit px-1 rounded-xl bg-opacity-20 text-text"
+        style={{
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          maxWidth: '160px', // Adjust the value based on your preference
+        }}
+      > <h2 className="text-sm font-light opacity-60 pl-1  p-0.5"> {genre}</h2>
+       </span>
+       ) }
+      
+    
+
          </span>
-<h2 className="text-lg font-bold mb-2 text-text  ml-5  ">{movie.movie?.original_title}</h2>
+<h2 className="text-lg font-bold mb-2 text-text  ml-5  ">{movie.Title}</h2>
   
   </div>
 </motion.div>
 
-
+</Link>
 
   );
 };

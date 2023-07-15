@@ -7,62 +7,28 @@ import Trandingcard from './Trandingcard';
 import {BsFillArrowLeftCircleFill,BsFillArrowRightCircleFill} from 'react-icons/bs';
 import Skeltoncards from './Skeltoncards';
 function Tranding() {
+
+  const containerRef = useRef(null);
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [genres, setGenres] = useState([]);
-  const containerRef = useRef(null);
-  const compareGenres = (prevGenres, newGenres) => {
-    if (prevGenres.length !== newGenres.length) {
-      return false;
-    }
-  
-    for (let i = 0; i < prevGenres.length; i++) {
-      if (prevGenres[i].id !== newGenres[i].id || prevGenres[i].name !== newGenres[i].name) {
-        return false;
-      }
-    }
-  
-    return true;
-  };
-  
-  const prevGenresRef = useRef([]);
-  
-  useEffect(() => {
-    axios
-      .get(requests.requestGenreList)
-      .then((response) => {
-        const newGenres = response.data.genres;
-        if (newGenres.length > 0) {
-          if (!compareGenres(prevGenresRef.current, newGenres)) {
-            setGenres(newGenres);
-            console.log(newGenres);
-          } else {
-            console.log("Genres data is the same as the previous value.");
-          }
-          prevGenresRef.current = newGenres;
-        } else {
-          console.log("Genres data is not available.");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        // Handle errors
-      });
-  }, []);
-  
 
   useEffect(() => {
-      const delay = 500; // 2 seconds
-
-   const timer = setTimeout(() => {
-      axios.get(requests.requestTrending).then((response) => {
-        setMovies(response.data.results);
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get(requests.movierequest(10));
+        setMovies(response.data);
         setLoading(false);
-        
-      });
-        }, delay);
-      return () => clearTimeout(timer);
-    }, []);
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+        setLoading(false);
+      }
+    };
+
+    const delay = 500; // 0.5 seconds
+    const timer = setTimeout(fetchMovies, delay);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const scrollLeft = () => {
     containerRef.current.scrollBy({
@@ -105,7 +71,7 @@ function Tranding() {
            </motion.button>
         </div>
       </div>
-      <div className=' flex   overflow-x-auto snap-mandatory snap-x scrollbar-hide '  ref={containerRef}>
+      <div className=' flex    overflow-x-scroll snap-mandatory snap-x scrollbar-hide sm:scrollbar-visible '  ref={containerRef}>
    
            {loading ? (
         Array.from({ length: 10 }).map((_, index) => (
@@ -114,14 +80,13 @@ function Tranding() {
           </div>
         ))
       ) : (
-        movies.map((movie) => ( <div  className=' snap-center'>  <Trandingcard
-          movie={{movie
-          }}
-          genres={genres}
-        />
        
-       </div>  
+        movies.map((movie) => (
+          <div className=' snap-center'>
+          <Trandingcard key={movie._id} movie={movie} />
+          </div>
         ))
+      
       )}
     </div>
     </div>

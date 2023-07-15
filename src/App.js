@@ -8,6 +8,7 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 import { AuthContextProvider } from './context/AuthContext';
 import Signup from './Pages/Signup';
 import Favoriteshow from './Pages/Favoriteshow';
+import MoviePage from './component/moviepage/MoviePage';
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
                 <Route path='/home' element={<Home/>} />
 
                 <Route path='/' element={ <Landingpage/>} />
-
+                <Route path="/movies/:id" element={<MoviePage/>} />
                </Routes>
         <Footer/>
           </SkeletonTheme>
