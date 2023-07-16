@@ -5,6 +5,7 @@ import { db } from '../firebase';
 import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const SavedShows = () => {
   const [movies, setMovies] = useState([]);
@@ -68,16 +69,16 @@ const SavedShows = () => {
                 background:'linear-gradient(#141414 , #141414 ) 50% 50%/calc(100% - 7px) calc(100% - 7px) no-repeat, linear-gradient(90deg, red 0%, purple 100%)', 
                 scale: 1.01,
               }}  >
-              <img
+              <Link to={`/movies/${item.id}`}> <img
                 className='w-full h-auto block scrollbar-hide   overflow-hidden'
-                src={`https://image.tmdb.org/t/p/w500/${item?.poster}`}
+                src={`${item.poster}`}
                 alt={item?.title}
-              />
+              /></Link>
           <div className='w-full h-fit  my-2 text-white'>
   <div>
-    <p className='whitespace-normal text-sm w-full md:text-sm font-extrabold flex justify-center items-center text-center break-words'>
+  <Link to={`/movies/${item.id}`}><p className='whitespace-normal text-sm w-full md:text-sm font-extrabold flex justify-center items-center text-center break-words'>
       {item?.title}
-    </p>
+    </p></Link>  
   </div>
   <motion.p
     whileHover={{ scale: 1.05, color: 'red' }}

@@ -20,7 +20,7 @@ const Trandingcard = ({ movie }) => {
           // Add the movie to the savedshow array
           await updateDoc(movieid, {
             savedshow: arrayUnion({
-              id: movie._id,
+              id: movie.movieId,
               title: movie.Title,
               poster: movie.ImageURL
             })
@@ -29,7 +29,7 @@ const Trandingcard = ({ movie }) => {
           // Remove the movie from the savedshow array
           await updateDoc(movieid, {
             savedshow: arrayRemove({
-              id: movie._id,
+              id: movie.movieId,
               title: movie.Title,
               poster: movie.ImageURL
             })
@@ -60,7 +60,7 @@ const Trandingcard = ({ movie }) => {
   }, [movie._id, user?.email]);
 
     
-  return ( <Link to={`/movies/${movie.movieId}`}>
+  return ( 
     <motion.div
     onHoverStart={()=>setIsHovered(true)}
     onHoverEnd={()=>setIsHovered(false)}
@@ -78,18 +78,23 @@ const Trandingcard = ({ movie }) => {
     scale: 1.01,
   }}
 >
-
+<Link to={`/movies/${movie.movieId}`}>
   <div className=" overflow-hidden  relative ">
+    
+   
+
     <motion.img
     animate={{  scale:isHovered ?1.1:1}}
         transition={{ duration: 0.6 }}
       className="w-full h-72 object-cover rounded-md  relative"
       src={movie.ImageURL}
       alt={movie.Title}
-    /> <motion.div className=" absolute top-0  right-0 px-3 pt-2 z-30  " initial={{opacity:0.7}} whileHover={{scale:1.2,opacity:1}} animate={{
+    /> 
+    
+     <motion.div className=" absolute top-1  right-1 px-3 pt-2 z-30  " initial={{opacity:0.7}} whileHover={{scale:1.2,opacity:1}} animate={{
         color: isFavorite ? 'red' : '', opacity: isFavorite ?1:0.7 ,scale:isFavorite ? [1,1.1,1]:1 
       }}    
-      onClick={saveshow}><AiFillHeart className=''/></motion.div> 
+      onClick={saveshow}><AiFillHeart  size={36}/></motion.div> 
      <motion.div
         className="absolute top-0 left-0 w-full h-full rounded-md"
         style={{
@@ -102,6 +107,8 @@ const Trandingcard = ({ movie }) => {
         transition={{ duration: 0.6 }}
       />
   </div>
+
+  </Link>
   <div className=' mt-2'>
    
   <span className="flex my-4">
@@ -125,13 +132,13 @@ const Trandingcard = ({ movie }) => {
       
     
 
-         </span>
-<h2 className="text-lg font-bold mb-2 text-text  ml-5  ">{movie.Title}</h2>
+         </span><Link to={`/movies/${movie.movieId}`}>
+<h2 className="text-lg font-bold mb-2 text-text  ml-5  ">{movie.Title}</h2></Link>
   
   </div>
 </motion.div>
 
-</Link>
+
 
   );
 };
