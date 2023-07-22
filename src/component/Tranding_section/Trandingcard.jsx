@@ -78,6 +78,7 @@ const Trandingcard = ({ movie }) => {
     scale: 1.01,
   }}
 >
+  <div className=' relative'>
 <motion.div className=" absolute top-1  right-1 px-3 pt-2 z-30  " initial={{opacity:0.7}} whileHover={{scale:1.2,opacity:1}} animate={{
         color: isFavorite ? 'red' : 'white', opacity: isFavorite ?1:0.7 ,scale:isFavorite ? [1,1.1,1]:1 
       }}    
@@ -108,7 +109,7 @@ const Trandingcard = ({ movie }) => {
       />
   </div>
   </Link>
-  
+  </div>
   <div className=' mt-2'>
    
   <span className="flex my-4">
