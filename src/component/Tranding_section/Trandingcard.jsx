@@ -78,10 +78,13 @@ const Trandingcard = ({ movie }) => {
     scale: 1.01,
   }}
 >
-
-  <div className=" overflow-hidden  relative ">
-    
-   <Link to={`/movies/${movie.movieId}`}>
+<motion.div className=" absolute top-1  right-1 px-3 pt-2 z-30  " initial={{opacity:0.7}} whileHover={{scale:1.2,opacity:1}} animate={{
+        color: isFavorite ? 'red' : 'white', opacity: isFavorite ?1:0.7 ,scale:isFavorite ? [1,1.1,1]:1 
+      }}    
+      onClick={saveshow}><AiFillHeart  size={36}/></motion.div> 
+ 
+ <Link to={`/movies/${movie.movieId}`}> <div className=" overflow-hidden  relative ">
+  
 
     <motion.img
     animate={{  scale:isHovered ?1.1:1}}
@@ -90,11 +93,8 @@ const Trandingcard = ({ movie }) => {
       src={movie.ImageURL}
       alt={movie.Title}
     /> 
-    </Link>
-     <motion.div className=" absolute top-1  right-1 px-3 pt-2 z-30  " initial={{opacity:0.7}} whileHover={{scale:1.2,opacity:1}} animate={{
-        color: isFavorite ? 'red' : 'white', opacity: isFavorite ?1:0.7 ,scale:isFavorite ? [1,1.1,1]:1 
-      }}    
-      onClick={saveshow}><AiFillHeart  size={36}/></motion.div> 
+    
+   
      <motion.div
         className="absolute top-0 left-0 w-full h-full rounded-md"
         style={{
@@ -107,7 +107,7 @@ const Trandingcard = ({ movie }) => {
         transition={{ duration: 0.6 }}
       />
   </div>
-
+  </Link>
   
   <div className=' mt-2'>
    
