@@ -66,7 +66,7 @@ const Trandingcard = ({ movie }) => {
     onHoverEnd={()=>setIsHovered(false)}
   className=" rounded-md    w-72   h-[410px]  m-5 sm:m-2 
    bg-opacity-20  cursor-pointer overflow-hidden 
- bg-[#666666] "
+ bg-[#918888] "
   style={{
     borderRadius: '4px',
     padding: '10px',

@@ -32,6 +32,13 @@ const Navbar = () => {
 
     fetchSearchResults();
   }, [searchQuery]);
+  const clearSearch = () => {
+    setSearchQuery('');
+    const searchInput = document.getElementById('default-search');
+    if (searchInput) {
+      searchInput.value = '';
+    }
+  };
 
 
 
@@ -68,7 +75,7 @@ const Navbar = () => {
         <div className="flex flex-col  absolute">
           
           {searchResults.map((movie) => (
-            <div className=' py-0.5'>
+            <div className=' py-0.5' onClick={()=>clearSearch()}>
             <Searchcards key={movie.id} movie={movie} />
             </div>
           ))}
