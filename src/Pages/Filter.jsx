@@ -59,14 +59,18 @@ function Filter() {
     setSelectedGenres(selectedOptions);
     // Implement the logic here to filter movies based on selectedGenres
   };
-
+  const handleLinkClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   // Handle pagination - go to next page
   const handleNextPage = () => {
+    handleLinkClick()
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
   // Handle pagination - go to previous page
   const handlePreviousPage = () => {
+    handleLinkClick()
     setCurrentPage((prevPage) => prevPage - 1);
   };
 

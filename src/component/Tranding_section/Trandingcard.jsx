@@ -66,7 +66,7 @@ const Trandingcard = ({ movie }) => {
     <motion.div
     onHoverStart={()=>setIsHovered(true)}
     onHoverEnd={()=>setIsHovered(false)}
-  className=" rounded-md    w-72   h-[410px]  m-5 sm:m-2 
+  className=" rounded-md    w-72     m-5 sm:m-2 
    bg-opacity-20  cursor-pointer overflow-hidden 
  bg-[#918888] "
   style={{
@@ -120,23 +120,23 @@ const Trandingcard = ({ movie }) => {
          
      
       
-       {movie.Genres.map((genre)=>
+       {movie.Genres.slice(0, 3).map((genre)=>
         <span
         className="bg-white h-fit flex mx-2 w-fit px-1 rounded-xl bg-opacity-20 text-text"
         style={{
-          overflow: 'hidden',
+         
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
-          maxWidth: '160px', // Adjust the value based on your preference
+          maxWidth: '190px', // Adjust the value based on your preference
         }}
-      > <h2 className="text-sm font-light opacity-60 pl-1  p-0.5"> {genre}</h2>
+      > <h2 className=" text-[12px] font-extrabold opacity-80 pl-1  p-0.5  h-fit "> {genre}</h2>
        </span>
        ) }
       
     
 
          </span><Link to={`/movies/${movie.movieId}`} onClick={handleLinkClick}>
-<h2 className="text-lg font-bold mb-2 text-text  ml-5  ">{movie.Title}</h2></Link>
+<h2 className="text-lg font-bold mb-2 text-text  ml-5   ">{movie.Title}</h2></Link>
   
   </div>
 </motion.div>

@@ -7,11 +7,16 @@ import Account from '../Account';
 import { UserAuth } from '../../context/AuthContext';
 import requests from '../../Requests';
 import Searchcards from './Searchcards';
-
+import {BiMoviePlay} from 'react-icons/bi'
+import {LiaTvSolid} from 'react-icons/lia'
+import {AiFillHome} from 'react-icons/ai'
 const Navbar = () => {
   const {user} = UserAuth()
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [dropdown, setdropdown] =useState(false)
+
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -61,7 +66,38 @@ const Navbar = () => {
       </div>
       </AnimationSection>    
 
-      <form className=' hidden sm:block'>   
+<motion.div className="   mr-auto relative">
+<motion.svg
+  initial={{rotate:90 , scale:0.3}}
+  animate={{ rotate:dropdown ? 180:90  ,fill:dropdown ? 'red':'white' }}
+  
+ onClick={()=> setdropdown(!dropdown)}
+ xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="white" viewBox="0 0 100 100">
+  <polygon points="50,0 100,100 0,100"  />
+</motion.svg>
+{ dropdown ? <div className=' absolute   left-16 top-16
+ text-white flex flex-col rounded-md  drop-shadow-2xl  
+    bg-[#191919]    py-2'> 
+<motion.div whileHover={{ color: 'red',backgroundColor:'#131313' }} className=' px-5 py-1' >
+<Link to="/"><AiFillHome size={25} className='inline-block mr-2' />Home</Link>
+      </motion.div>
+
+      <motion.div whileHover={{ color: 'red', backgroundColor: '#131313' }} className='px-5 py-1'>
+        <Link to="/movies"><BiMoviePlay size={25} className='inline-block mr-2' />Movies</Link>
+      </motion.div>
+
+      <motion.div whileHover={{ color: 'red', backgroundColor: '#131313' }} className='px-5 py-1   whitespace-nowrap'>
+        <Link to="/tvshows" className='flex items-center'> 
+          <LiaTvSolid className='mr-2' size={25} />TV Shows
+        </Link>
+      </motion.div>
+
+</div>: <div/>}
+
+</motion.div>
+
+
+      <form className=' hidden sm:block mr-auto'>   
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white   ">Search</label>
     <div class="relative  ">
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none  ">
@@ -90,7 +126,6 @@ const Navbar = () => {
 
      <div className="flex items-center  text-base sm:gap-10 ">
     
-
 <Account/>
 
 
