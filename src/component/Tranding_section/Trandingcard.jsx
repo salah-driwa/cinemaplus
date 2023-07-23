@@ -42,7 +42,9 @@ const Trandingcard = ({ movie }) => {
       }
     };
   
-   
+    const handleLinkClick = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     
   useEffect(() => {
@@ -84,7 +86,7 @@ const Trandingcard = ({ movie }) => {
       }}    
       onClick={saveshow}><AiFillHeart  size={36}/></motion.div> 
  
- <Link to={`/movies/${movie.movieId}`}> <div className=" overflow-hidden  relative ">
+ <Link to={`/movies/${movie.movieId}`} onClick={handleLinkClick} > <div className=" overflow-hidden  relative ">
   
 
     <motion.img
@@ -133,7 +135,7 @@ const Trandingcard = ({ movie }) => {
       
     
 
-         </span><Link to={`/movies/${movie.movieId}`}>
+         </span><Link to={`/movies/${movie.movieId}`} onClick={handleLinkClick}>
 <h2 className="text-lg font-bold mb-2 text-text  ml-5  ">{movie.Title}</h2></Link>
   
   </div>
