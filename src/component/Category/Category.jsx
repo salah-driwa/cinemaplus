@@ -71,7 +71,7 @@ function Category() {
         >
           <BiSolidCategoryAlt />
         </motion.span>
-        <span className=" sm:ml-2">categoeries</span>
+        <span className=" sm:ml-2">Categories</span>
         <div className="flex ml-auto  sm:mr-32 mr-10">
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -135,7 +135,7 @@ function Category() {
   {activeCategory === 'Action' &&
     actionMovies.map((movie) => (
       <div key={movie._id}>
-        <div className="snap-center">
+        <div className="snap-center ">
           <Trandingcard key={movie._id} movie={movie} />
         </div>
       </div>

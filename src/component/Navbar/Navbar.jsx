@@ -66,16 +66,16 @@ const Navbar = () => {
       </div>
       </AnimationSection>    
 
-<motion.div className="   mr-auto relative">
+<motion.div className="   mr-auto relative ">
 <motion.svg
-  initial={{rotate:90 , scale:0.3}}
+  initial={{rotate:90 , scale:0.3 ,x:-35}}
   animate={{ rotate:dropdown ? 180:90  ,fill:dropdown ? 'red':'white' }}
   
  onClick={()=> setdropdown(!dropdown)}
  xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="white" viewBox="0 0 100 100">
   <polygon points="50,0 100,100 0,100"  />
 </motion.svg>
-{ dropdown ? <div className=' absolute   left-16 top-16
+{ dropdown ? <div className=' absolute   left-6 top-16
  text-white flex flex-col rounded-md  drop-shadow-2xl  
     bg-[#191919]    py-2'> 
 <motion.div whileHover={{ color: 'red',backgroundColor:'#131313' }} className=' px-5 py-1' >
