@@ -66,7 +66,7 @@ const Trandingcard = ({ movie }) => {
     <motion.div
     onHoverStart={()=>setIsHovered(true)}
     onHoverEnd={()=>setIsHovered(false)}
-  className=" rounded-md    w-72     m-5 sm:m-2 
+  className=" rounded-md    w-72 h-[450px]     m-5 sm:m-2 
    bg-opacity-20  cursor-pointer overflow-hidden 
  bg-[#918888] "
   style={{
