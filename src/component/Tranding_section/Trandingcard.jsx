@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 const Trandingcard = ({ movie }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
+   
     const {user} =UserAuth();
 
     const movieid= doc(db,'users',`${user?.email}`)
@@ -49,17 +50,21 @@ const Trandingcard = ({ movie }) => {
     
   useEffect(() => {
     const checkIfFavorite = async () => {
-      if (user?.email && movie._id) {
+      if (user?.email && movie.movieId) {
         const docRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(docRef);
+        
         const savedShow = docSnap.data()?.savedshow || [];
-        const isMovieSaved = savedShow.some((show) => show.id === movie._id);
+        
+        const isMovieSaved = savedShow.some((show) => show.id === movie.movieId);
+        
         setIsFavorite(isMovieSaved);
+       
       }
     };
 
     checkIfFavorite();
-  }, [movie._id, user?.email]);
+  }, [movie.movieId, user?.email]);
 
     
   return ( 
@@ -80,6 +85,7 @@ const Trandingcard = ({ movie }) => {
     scale: 1.01,
   }}
 >
+  
   <div className=' relative'>
 <motion.div className=" absolute top-1  right-1 px-3 pt-2 z-30  " initial={{opacity:0.7}} whileHover={{scale:1.2,opacity:1}} animate={{
         color: isFavorite ? 'red' : 'white', opacity: isFavorite ?1:0.7 ,scale:isFavorite ? [1,1.1,1]:1 

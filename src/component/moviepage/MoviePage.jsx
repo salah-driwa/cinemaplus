@@ -70,14 +70,18 @@ const MoviePage = () => {
 
     
     <div className="mt-20 mb-32 flex  flex-col justify-center  ">
+    <h1 className=' font-extrabold text-2xl text-center mb-10  text-red-600 opacity-100'>Note: this is just for  study purposes only ! </h1>
+
        <h1 className=' font-extrabold text-2xl text-center mb-10'>Watch servers </h1>
         <iframe className=' m-auto'
+        
           src={movie[0].Server2URL}
           title="Movie Player"
           width="800"
           height="450"
           frameBorder="0"
           allowFullScreen
+          style={{ pointerEvents: 'none' }} 
         ></iframe>
       </div>
     {/* Additional movie details */}
