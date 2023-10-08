@@ -1,48 +1,14 @@
 import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
-import { AiFillStar, AiFillHeart } from 'react-icons/ai';
- import { UserAuth } from '../../context/AuthContext';
- import { db } from '../../firebase';
- import { arrayUnion,doc,updateDoc,getDoc,arrayRemove  } from 'firebase/firestore';
-const UpcomingCard = ({ movie, genres }) => {
+import React, {  useState } from 'react';
+import { AiFillStar } from 'react-icons/ai';
+
+
+
+const UpcomingCard = ({ movie, genres  }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
-  
-  const {user} =UserAuth();
 
-  const movieid= doc(db,'users',`${user?.email}`)
-  const saveshow = async () => {
-    if (user?.email) {
-      const updatedIsFavorite = !isFavorite; // Get the updated value of isFavorite
   
-      if (updatedIsFavorite) {
-        // Add the movie to the savedshow array
-        await updateDoc(movieid, {
-          savedshow: arrayUnion({
-            id: movie.id,
-            title: movie.original_title,
-            img: movie.backdrop_path,
-            poster: movie.poster_path
-          })
-        });
-      } else {
-        // Remove the movie from the savedshow array
-        await updateDoc(movieid, {
-          savedshow: arrayRemove({
-            id: movie.id,
-            title: movie.original_title,
-            img: movie.backdrop_path,
-            poster: movie.poster_path
-          })
-        });
-      }
-  
-      setIsFavorite(updatedIsFavorite); // Update the state with the new value
-    } else {
-      alert('Please log in to save a movie');
-    }
-  };
-
+ 
   const getGenreNames = () => {
     const genreNames = movie.genre_ids
       .slice(0, 1) // Get the first two genre IDs
@@ -53,19 +19,7 @@ const UpcomingCard = ({ movie, genres }) => {
     return genreNames.join(', ');
   };
 
-  useEffect(() => {
-    const checkIfFavorite = async () => {
-      if (user?.email && movie.id) {
-        const docRef = doc(db, 'users', user.email);
-        const docSnap = await getDoc(docRef);
-        const savedShow = docSnap.data()?.savedshow || [];
-        const isMovieSaved = savedShow.some((show) => show.id === movie.id);
-        setIsFavorite(isMovieSaved);
-      }
-    };
-
-    checkIfFavorite();
-  }, [movie.id, user?.email]);
+ 
 
 
   return (
@@ -92,19 +46,7 @@ const UpcomingCard = ({ movie, genres }) => {
           src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
           alt={movie?.title}
         />
-        <motion.div
-          className="absolute top-0 right-0 px-3 pt-2 z-30"
-          initial={{ opacity: 0.7 }}
-          whileHover={{ scale: 1.2, opacity: 1 }}
-          animate={{
-            color: isFavorite ? 'red' : '',
-            opacity: isFavorite ? 1 : 0.7,
-            scale: isFavorite ? [1, 1.1, 1] : 1,
-          }}
-          onClick={saveshow}
-        >
-          <AiFillHeart className="" />
-        </motion.div>
+       
         <motion.div
           className="absolute top-0 left-0 w-full h-full rounded-md"
           style={{

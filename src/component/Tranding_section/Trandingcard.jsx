@@ -116,23 +116,20 @@ const Trandingcard = ({ movie }) => {
    
   <span className="flex my-4">
 
-           
-         
-     
-      
-       {movie.Genres.slice(0, 3).map((genre)=>
-        <span
-        className="bg-white h-fit flex mx-2 w-fit px-1 rounded-xl bg-opacity-20 text-text"
-        style={{
-         
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
-          maxWidth: '190px', // Adjust the value based on your preference
-        }}
-      > <h2 className=" text-[12px] font-extrabold opacity-80 pl-1  p-0.5  h-fit "> {genre}</h2>
-       </span>
-       ) }
-      
+  {movie.Genres.slice(0, 3).map((genre) => (
+  <span
+  className="bg-white h-6 flex mx-2 w-fit px-4 rounded-xl bg-opacity-20 text-text justify-center"
+  style={{
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    maxWidth: '160px', // Adjust the value based on your preference
+  }}
+>
+    <h2 className=" h-fit font-extrabold opacity-80 px-1 text-sm  pl-1">{genre}</h2>
+  </span>
+))}
+
     
 
          </span><Link to={`/movies/${movie.movieId}`} onClick={handleLinkClick}>
