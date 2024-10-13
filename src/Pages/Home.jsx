@@ -12,13 +12,15 @@ function Home()
    
     <Herobanner/>
     
-       <div className='sm:flex sm:gap-10 sm:mx-12'> <div className=' w-full  h-[1200px] overflow-y-hidden  my-10  sm:mb-0 mb-32  flex  flex-col gap-10 sm:overflow-auto '>   <Tranding/> <Upcaming/> </div>
+       <div className='sm:flex sm:gap-10 sm:mx-12'> 
+         <div className=' w-full  h-[1200px] overflow-y-hidden  my-10  sm:mb-0 mb-32  flex  flex-col gap-10 sm:overflow-auto '>   <Tranding/> <Upcaming/> </div>
     <Mostrated/>
     </div>
   
     <section className='    overflow-y-hidden sm:mx-auto  sm:my-10  sm:mb-0 mb-32  flex  flex-col gap-10 sm:overflow-auto   h-[700px]'><Category/></section>
 
-    </body>)
+    </body>
+    )
 }
 
 export default Home
